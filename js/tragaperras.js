@@ -24,7 +24,13 @@ let indicesFrutas = []
 
 function jugar(){
     //console.log('has hecho clic');
-    creditos--;
+    let nuevosCreditos = creditos--;
+    if (creditos > 0){
+        //console.log(nuevosCreditos);
+        let antiguosCreditos = document.getElementById('credits-value')
+        antiguosCreditos.innerHTML = nuevosCreditos
+    }
+    
     //indicesFrutas = generarTresNumerosAleatorios();
     generarTresNumerosAleatorios();
     numerouno = indicesFrutas[0]
