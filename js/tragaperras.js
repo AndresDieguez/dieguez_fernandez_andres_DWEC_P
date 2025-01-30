@@ -11,25 +11,51 @@ botonJugar.addEventListener('click', jugar)
 
 let creditos = parseInt(document.getElementById('credits-value').textContent);
 //console.log(creditos);
+let slot1 = document.getElementById('slot1');
+let slot2 = document.getElementById('slot2');
+let slot3 = document.getElementById('slot3');
+
+
 
 let numerouno
 let numerodos
 let numerotres
-const indicesFrutas[]
+let indicesFrutas = []
 
 function jugar(){
     //console.log('has hecho clic');
     creditos--;
-    indicesFrutas = generarTresNumerosAleatorios();
+    //indicesFrutas = generarTresNumerosAleatorios();
+    generarTresNumerosAleatorios();
+    numerouno = indicesFrutas[0]
+    numerodos = indicesFrutas[1]
+    numerotres = indicesFrutas[2]
 
+    for (const fruta of frutas) {
 
+        if (numerouno === fruta.index){
+            slot1.innerHTML = fruta.simbolo
+        }
+        if (numerodos === fruta.index){
+            slot2.innerHTML = fruta.simbolo
+        }
+        if (numerotres === fruta.index){
+            slot3.innerHTML = fruta.simbolo
+        }
+        
+    }
+    indicesFrutas.splice(0,3) // borramos el array
+
+    //console.log(indicesFrutas);
 }
 
 function generarTresNumerosAleatorios() {
-    numerouno = Math.floor(Math.random() * 5 +1)
-    numerouno = Math.floor(Math.random() * 5 +1)
-    numerouno = Math.floor(Math.random() * 5 +1)
-    return null;
+    //numerouno = Math.floor(Math.random() * 5 +1)
+    indicesFrutas.push(Math.floor(Math.random() * 5 +1))
+    //numerodos = Math.floor(Math.random() * 5 +1)
+    indicesFrutas.push(Math.floor(Math.random() * 5 +1))
+    //numerotres = Math.floor(Math.random() * 5 +1)
+    indicesFrutas.push(Math.floor(Math.random() * 5 +1))
 }
 
 
