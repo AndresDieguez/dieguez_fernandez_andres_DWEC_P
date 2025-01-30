@@ -9,7 +9,7 @@ const frutas = [
 let botonJugar = document.getElementById('play-button');
 botonJugar.addEventListener('click', jugar)
 
-let creditos = parseInt(document.getElementById('credits-value').textContent);
+
 //console.log(creditos);
 let slot1 = document.getElementById('slot1');
 let slot2 = document.getElementById('slot2');
@@ -21,15 +21,11 @@ let numerouno
 let numerodos
 let numerotres
 let indicesFrutas = []
-
+let creditos = 10;
+let nuevosCreditos = document.getElementById('credits-value')
 function jugar(){
     //console.log('has hecho clic');
-    let nuevosCreditos = creditos--;
-    if (creditos > 0){
-        //console.log(nuevosCreditos);
-        let antiguosCreditos = document.getElementById('credits-value')
-        antiguosCreditos.innerHTML = nuevosCreditos
-    }
+    creditos--;
     
     //indicesFrutas = generarTresNumerosAleatorios();
     generarTresNumerosAleatorios();
@@ -50,6 +46,22 @@ function jugar(){
         }
         
     }
+    
+    if (numerouno == numerodos && numerodos == numerotres & numerouno == 1){
+        alert('ganaste el premio gordo')
+        window.location.href = '../index.html'
+    } else if (numerouno == numerodos && numerodos == numerotres){
+        creditos = creditos + 3       
+    }else if(numerouno == numerodos || numerodos == numerotres){
+        creditos++; 
+    } 
+    nuevosCreditos.innerHTML = creditos 
+    if (creditos == 0) {    
+        alert('se acabo el dinero, volver a jugar?')
+        window.location.href = 'juego.html'     
+    }
+    
+    
     indicesFrutas.splice(0,3) // borramos el array
 
     //console.log(indicesFrutas);
