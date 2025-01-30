@@ -6,15 +6,29 @@ const frutas = [
     { index: 5, nombre: 'Plátano', simbolo: '🍌' }
 ];
 
+let botonJugar = document.getElementById('play-button');
+botonJugar.addEventListener('click', jugar)
+
+let creditos = parseInt(document.getElementById('credits-value').textContent);
+//console.log(creditos);
+
+let numerouno
+let numerodos
+let numerotres
+const indicesFrutas[]
 
 function jugar(){
-
+    //console.log('has hecho clic');
+    creditos--;
     indicesFrutas = generarTresNumerosAleatorios();
 
 
 }
 
 function generarTresNumerosAleatorios() {
+    numerouno = Math.floor(Math.random() * 5 +1)
+    numerouno = Math.floor(Math.random() * 5 +1)
+    numerouno = Math.floor(Math.random() * 5 +1)
     return null;
 }
 
