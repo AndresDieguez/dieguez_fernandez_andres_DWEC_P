@@ -1,79 +1,69 @@
 const frutas = [
-    { index: 1, nombre: 'Cereza', simbolo: '🍒' },
-    { index: 2, nombre: 'Limón', simbolo: '🍋' },
-    { index: 3, nombre: 'Sandía', simbolo: '🍉' },
-    { index: 4, nombre: 'Uva', simbolo: '🍇' },
-    { index: 5, nombre: 'Plátano', simbolo: '🍌' }
+    { nombre: 'Cereza', simbolo: '🍒' },
+    { nombre: 'Limón', simbolo: '🍋' },
+    { nombre: 'Sandía', simbolo: '🍉' },
+    { nombre: 'Uva', simbolo: '🍇' },
+    { nombre: 'Plátano', simbolo: '🍌' }
 ];
 
-let botonJugar = document.getElementById('play-button');
-botonJugar.addEventListener('click', jugar)
-
-
-//console.log(creditos);
-let slot1 = document.getElementById('slot1');
-let slot2 = document.getElementById('slot2');
-let slot3 = document.getElementById('slot3');
-
-
-
-let numerouno
-let numerodos
-let numerotres
-let indicesFrutas = []
 let creditos = 10;
-let nuevosCreditos = document.getElementById('credits-value')
-function jugar(){
-    //console.log('has hecho clic');
-    creditos--;
-    
-    //indicesFrutas = generarTresNumerosAleatorios();
-    generarTresNumerosAleatorios();
-    numerouno = indicesFrutas[0]
-    numerodos = indicesFrutas[1]
-    numerotres = indicesFrutas[2]
+const botonJugar = document.getElementById('play-button');
+const slot1 = document.getElementById('slot1');
+const slot2 = document.getElementById('slot2');
+const slot3 = document.getElementById('slot3');
+const nuevosCreditos = document.getElementById('credits-value');
 
-    for (const fruta of frutas) {
+botonJugar.addEventListener('click', jugar);
 
-        if (numerouno === fruta.index){
-            slot1.innerHTML = fruta.simbolo
+function jugar() {
+    creditos--;  // Restar 1 crédito por jugada
+    let indicesFrutas = [] 
+    indicesFrutas = generarTresNumerosAleatorios();
+
+    let numerouno = indicesFrutas[0];
+    let numerodos = indicesFrutas[1];
+    let numerotres = indicesFrutas[2];
+
+    // Actualizar la interfaz con los nuevos símbolos de frutas
+    slot1.innerHTML = frutas[numerouno].simbolo;
+    slot2.innerHTML = frutas[numerodos].simbolo;
+    slot3.innerHTML = frutas[numerotres].simbolo;
+
+    let premio = null;
+
+    // Verificar si las 3 frutas son iguales
+    if (numerouno === numerodos && numerodos === numerotres) {
+        if (numerouno === 0) {
+            premio = '¡Ganaste el premio gordo con 3 cerezas!';
+            creditos += 3;  // Premio especial para 3 cerezas
+        } else {
+            //premio = '¡Ganaste con 3 frutas iguales!';
+            creditos += 3;  // Si son otras frutas iguales, ganamos 3 créditos
         }
-        if (numerodos === fruta.index){
-            slot2.innerHTML = fruta.simbolo
-        }
-        if (numerotres === fruta.index){
-            slot3.innerHTML = fruta.simbolo
-        }
-        
     }
-    
-    if (numerouno == numerodos && numerodos == numerotres & numerouno == 1){
-        alert('ganaste el premio gordo')
-        window.location.href = '../index.html'
-    } else if (numerouno == numerodos && numerodos == numerotres){
-        creditos = creditos + 3       
-    }else if(numerouno == numerodos || numerodos == numerotres){
-        creditos++; 
-    } 
-    nuevosCreditos.innerHTML = creditos 
-    if (creditos == 0) {    
-        alert('se acabo el dinero, volver a jugar?')
-        window.location.href = 'juego.html'     
+    // Verificar si 2 frutas son iguales
+    else if (numerouno === numerodos || numerodos === numerotres) {
+        //premio = '¡Ganaste con 2 frutas continuas iguales!';
+        creditos++;  // Si hay 2 frutas iguales, ganar 1 crédito
     }
-    
-    
-    indicesFrutas.splice(0,3) // borramos el array
 
-    //console.log(indicesFrutas);
+    // Actualizar el valor de créditos en la pantalla
+    nuevosCreditos.innerHTML = creditos;
+
+    // Si no quedan créditos, mostrar mensaje y redirigir
+    if (creditos == 0) {
+        alert('Se acabó el dinero, ¿quieres volver a jugar?');
+        window.location.href = 'juego.html';
+    } else if (premio) {
+        // Mostrar el mensaje de premio después de actualizar la interfaz
+        alert(premio);
+    }
 }
 
 function generarTresNumerosAleatorios() {
-    //numerouno = Math.floor(Math.random() * 5 +1)
-    indicesFrutas.push(Math.floor(Math.random() * 5 +1))
-    //numerodos = Math.floor(Math.random() * 5 +1)
-    indicesFrutas.push(Math.floor(Math.random() * 5 +1))
-    //numerotres = Math.floor(Math.random() * 5 +1)
-    indicesFrutas.push(Math.floor(Math.random() * 5 +1))
+    return [
+        Math.floor(Math.random() * 5),  // Índices entre 0 y 4
+        Math.floor(Math.random() * 5),
+        Math.floor(Math.random() * 5)
+    ];
 }
-
-
